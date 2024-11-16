@@ -37,3 +37,16 @@ def count_items_by_author(item_ids: list, conn: sqlite3.Connection) -> dict:
 
     sorted_dict = dict(sorted(creator_counts_dict.items(), key=lambda item: item[1], reverse=True))
     return sorted_dict
+
+def count_num_distinct_authors(item_ids: list, conn: sqlite3.Connection) -> int:
+    """Count how many different authors there are for the given item ID's."""
+
+    item_ids_str = "?, " * len(item_ids)
+    item_ids_str = item_ids_str[0:-2]
+    sqlite_str = f"""SELECT itemID, creatorID FROM itemCreators WHERE itemID IN ({item_ids_str})"""
+    cursor = conn.cursor()
+    sql_result = cursor.execute(sqlite_str, item_ids).fetchall()
+
+    creator_ids = [result[1] for result in sql_result]
+    unique_creator_ids = list(set(creator_ids))
+    return len(unique_creator_ids)
