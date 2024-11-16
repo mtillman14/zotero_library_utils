@@ -6,9 +6,14 @@ build-backend = 'hatchling.build'
 [project]
 name = "zotero_library_utils"
 version = '0.1.0'
-description = 'A template for a Python project.'
+description = 'Tools to locally analyze a Zotero library.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
 dependencies = [
 
 ]
 
+# [tool.hatch.build.targets.wheel]
+# include = ["src/"]
+
+# [tool.hatch.build.targets.sdist]
+# include = ["src/"]
