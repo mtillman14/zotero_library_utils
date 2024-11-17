@@ -50,3 +50,23 @@ def count_num_distinct_authors(item_ids: list, conn: sqlite3.Connection) -> int:
     creator_ids = [result[1] for result in sql_result]
     unique_creator_ids = list(set(creator_ids))
     return len(unique_creator_ids)
+
+def count_authors_per_item(item_ids: list, conn: sqlite3.Connection) -> dict:
+    """Count how many items have N authors. Returns dict with number of authors as keys, values are number of items."""
+    authors_count_dict = {}
+    cursor = conn.cursor()
+    for item_id in item_ids:
+        sqlite_str = "SELECT creatorID FROM itemCreators WHERE itemID = ?"
+        sqlite_fetched = cursor.execute(sqlite_str, (item_id,)).fetchall()        
+        if not sqlite_fetched:
+            continue
+        sqlite_result = [v[0] for v in sqlite_fetched]
+        num_creators = len(sqlite_result)
+        if num_creators not in authors_count_dict:
+            authors_count_dict[num_creators] = 0
+            # Fill in missing lower values
+            # for idx in range(1,num_creators):
+            #     if idx not in authors_count_dict:
+            #         authors_count_dict[idx] = 0
+        authors_count_dict[num_creators] += 1
+    return authors_count_dict

@@ -1,19 +1,36 @@
 import matplotlib.pyplot as plt
 
-def pie_chart(counts_dict: dict, num_slices: int = 20):
-    """Visualize a pie chart given a counts dictionary."""
-    total_count = sum([v for v in counts_dict.values()])
+def autopct_format(values):
+    def my_format(pct):
+        total = sum(values)
+        val = int(round(pct*total/100.0))
+        return '{v:d}'.format(v=val)
+    return my_format
 
-    # Get the top num_slices
-    counts_dict_top = {}
-    for slice_num, slice_name in enumerate(counts_dict.keys()):
-        if slice_num >= num_slices:
-            break
-        slice_name = counts_dict_top[slice_name]
-        counts_dict_top[slice_name] = counts_dict[slice_name] / total_count
+def pie_chart(counts_dict: dict, num_slices: int = 20, sort_by: str = "values", title_str: str = ""):
+    """Visualize a pie chart given a counts dictionary.
+    Can sort the pie chart slices by either values or labels"""
+    
+    if sort_by not in ("values", "labels"):
+        raise ValueError("Invalid 'sort_by' parameter. Valid parameters are 'values' or 'labels'.")
 
-    labels = [k for k in counts_dict_top.keys()]
-    values = [v for v in counts_dict_top.values()]
+    labels = list(counts_dict.keys())
+    # labels = [str(label) for label in labels]
+    values = list(counts_dict.values())
 
+    # Sort the labels and values together based on the chosen criterion
+    if sort_by == "values":
+        sorted_pairs = sorted(zip(values, labels), reverse=True)
+        sorted_values, sorted_labels = zip(*sorted_pairs)
+    elif sort_by == "labels":
+        sorted_pairs = sorted(zip(labels, values))
+        sorted_labels, sorted_values = zip(*sorted_pairs)
+
+    # Limit to the top `num_slices`
+    sorted_labels = sorted_labels[:num_slices]
+    sorted_values = sorted_values[:num_slices]
+    
     fig, ax = plt.subplots()
-    ax.pie(values, labels=labels)
+    ax.pie(sorted_values, labels=sorted_labels, autopct=autopct_format(sorted_values))
+    plt.title(title_str)
+    plt.show()
