@@ -3,9 +3,9 @@ import os
 
 import typer
 
-from Counts.counts import count_items_by_author, count_num_distinct_authors, count_authors_per_item
-from Items.get_all_items import get_all_items
-from Visualizations.pie_chart import pie_chart
+from .Counts.counts import count_items_by_author, count_num_distinct_authors, count_authors_per_item
+from .Items.get_all_items import get_all_items
+from .Visualizations.pie_chart import pie_chart
 
 app = typer.Typer()
 
@@ -15,7 +15,10 @@ def get_connection(zotero_db_file: str):
         zotero_db_file = os.path.join(os.path.expanduser('~'), 'Zotero', 'zotero.sqlite') # cross-platform
     if not os.path.exists(zotero_db_file):
         raise FileNotFoundError(f"Database file not found: {zotero_db_file}")
-    return sqlite3.connect(zotero_db_file)
+    try:        
+        return sqlite3.connect(zotero_db_file)
+    except sqlite3.OperationalError:
+        raise Exception("Zotero is must be closed to connect to the database.")
 
 @app.command()
 def show_creators_per_item(zotero_db_file: str = typer.Option(None, help="Path to the Zotero SQLite database file.")):

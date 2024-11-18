@@ -1,6 +1,6 @@
 import sqlite3
 
-from Classes.creator import get_creator
+from ..Classes.creator import get_creator
 
 def count_items_by_author(item_ids: list, conn: sqlite3.Connection) -> dict:
     """Given a list of item ID's, return a dictionary where the keys are authors and the values are the number of items."""

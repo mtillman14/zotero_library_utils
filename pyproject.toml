@@ -9,7 +9,8 @@ version = '0.1.0'
 description = 'Tools to locally analyze a Zotero library.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
 dependencies = [
-
+    "typer",
+    "matplotlib"
 ]
 
 # [tool.hatch.build.targets.wheel]

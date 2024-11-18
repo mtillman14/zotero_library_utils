@@ -7,12 +7,12 @@ This project aims to provide tools to understand the makeup of a Zotero library,
 Provides counts of several pieces of metadata:
     
 1. Number of articles from each author
-![Number of Articles from Top 20 Authors](show_items_per_creator.png)
+![Number of Articles from Top 20 Authors](docs/show_items_per_creator.png)
 
 2. Number of different authors in the database (identified by first and last name)
 
 3. Number of articles with 1-N authors
-![Number of Authors Per Article](show_creators_per_item.png)
+![Number of Authors Per Article](docs/show_creators_per_item.png)
 
 ## Timelines
 Visualize timelines for various metadata:
