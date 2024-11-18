@@ -3,9 +3,13 @@ import os
 
 import typer
 
+from .Classes.item import get_item
 from .Counts.counts import count_items_by_author, count_num_distinct_authors, count_authors_per_item
 from .Items.get_all_items import get_all_items
 from .Visualizations.pie_chart import pie_chart
+from .Visualizations.stem_plot import stem_plot
+
+ZOTERO_DB_FILE_HELP = "Path to the Zotero SQLite database file."
 
 app = typer.Typer()
 
@@ -21,7 +25,7 @@ def get_connection(zotero_db_file: str):
         raise Exception("Zotero is must be closed to connect to the database.")
 
 @app.command()
-def show_creators_per_item(zotero_db_file: str = typer.Option(None, help="Path to the Zotero SQLite database file.")):
+def show_creators_per_item(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP)):
     """
     Show a pie chart of the number of creators per research item in the Zotero database.
     
@@ -38,7 +42,7 @@ def show_creators_per_item(zotero_db_file: str = typer.Option(None, help="Path t
         conn.close()
 
 @app.command()
-def show_items_per_creator(zotero_db_file: str = typer.Option(None, help="Path to the Zotero SQLite database file."), 
+def show_items_per_creator(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP), 
                            num_slices: int = typer.Option(20, help="Number of slices to display in the pie chart.")):
     """
     Show a pie chart of the number of items from the top N creators in the Zotero database.
@@ -57,7 +61,7 @@ def show_items_per_creator(zotero_db_file: str = typer.Option(None, help="Path t
         conn.close()
 
 @app.command()
-def count_distinct_authors(zotero_db_file: str = typer.Option(None, help="Path to the Zotero SQLite database file.")):
+def count_distinct_authors(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP)):
     """
     Count the number of distinct authors in the Zotero database.
     
@@ -69,5 +73,26 @@ def count_distinct_authors(zotero_db_file: str = typer.Option(None, help="Path t
         item_ids = get_all_items(conn)
         authors_count = count_num_distinct_authors(item_ids, conn)
         print(f"Number of authors: {authors_count}")
+    finally:
+        conn.close()
+
+# typer.Option(default=None, help=ZOTERO_DB_FILE_HELP)
+@app.command()
+def show_timeline_date_published(zotero_db_file: str = None, show_details: bool = True):
+    """
+    Show the timeline of when the articles in the Zotero database were published.
+
+    Args:
+        zotero_db_file (str, optional): Path to the Zotero SQLite database file.
+    """
+    try:
+        conn = get_connection(zotero_db_file)
+        item_ids = get_all_items(conn)
+        items_list = []
+        for item_id in item_ids:
+            item = get_item(item_id, conn)
+            if item and item.date_published is not None:
+                items_list.append(item)
+        stem_plot([item.to_dict() for item in items_list], show_details=show_details)
     finally:
         conn.close()
