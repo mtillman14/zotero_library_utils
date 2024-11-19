@@ -15,7 +15,7 @@ Provides counts of several pieces of metadata:
 ```bash
 zotero-utils show-items-per-creator --num-slices=20
 ```
-![Number of Articles from Top 20 Authors](show_items_per_creator.png)
+![Number of Articles from Top 20 Authors](show_items_per_creator_bar.png)
 
 2. Number of different authors in the database (identified by first and last name)
 ```bash
@@ -26,7 +26,7 @@ zotero-utils count-distinct-authors
 ```bash
 zotero-utils show-creators-per-item --num-slices=20
 ```
-![Number of Authors Per Article](show_creators_per_item.png)
+![Number of Authors Per Article](show_creators_per_item_bar.png)
 
 ## Timelines
 Visualize when articles were published

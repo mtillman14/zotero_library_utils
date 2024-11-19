@@ -13,6 +13,7 @@ from .Visualizations.stem_plot import stem_plot
 
 ZOTERO_DB_FILE_HELP = "Path to the Zotero SQLite database file."
 VIS_TYPE_HELP = "Choose how to visualize the data."
+NUM_GROUPS_HELP = "Number of groups to display in the chart."
 
 app = typer.Typer()
 
@@ -40,7 +41,7 @@ def resolve_vis_type(vis_type: VisType):
 
 @app.command()
 def show_creators_per_item(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP),
-                           num_slices: int = typer.Option(20, help="Number of slices to display in the pie chart."),
+                           num_groups: int = typer.Option(20, help=NUM_GROUPS_HELP),
                            vis_type: VisType = typer.Option(VisType.bar, help=VIS_TYPE_HELP)):
     """
     Show a pie chart of the number of creators per research item in the Zotero database.
@@ -55,22 +56,22 @@ def show_creators_per_item(zotero_db_file: str = typer.Option(default=None, help
         counts = count_authors_per_item(item_ids, conn)
         title_str = "Number of Authors Per Item"
         if vis_type=="bar":
-            stacked_bar_chart(counts, num_slices=num_slices, sort_by='labels', title_str=title_str)
+            stacked_bar_chart(counts, num_groups=num_groups, sort_by='labels', title_str=title_str)
         elif vis_type=="pie":
-            pie_chart(counts, num_slices=20, title_str=title_str, sort_by="labels")        
+            pie_chart(counts, num_groups=20, title_str=title_str, sort_by="labels")        
     finally:
         conn.close()
 
 @app.command()
 def show_items_per_creator(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP), 
-                           num_slices: int = typer.Option(20, help="Number of slices to display in the pie chart."),
+                           num_groups: int = typer.Option(20, help=NUM_GROUPS_HELP),
                            vis_type: VisType = typer.Option(VisType.bar, help=VIS_TYPE_HELP)):
     """
     Show a pie chart of the number of items from the top N creators in the Zotero database.
     
     Args:
         zotero_db_file: Path to the Zotero SQLite database file.
-        num_slices: Number of slices to display in the pie chart (default is 20).
+        num_groups: Number of slices to display in the pie chart (default is 20).
     """
     conn = get_connection(zotero_db_file)
     try:        
@@ -79,9 +80,9 @@ def show_items_per_creator(zotero_db_file: str = typer.Option(default=None, help
         counts = count_items_by_author(item_ids, conn)
         title_str = "Item Count Per Author"
         if vis_type=="bar":
-            stacked_bar_chart(counts, num_slices=num_slices, sort_by='values', title_str=title_str)
+            stacked_bar_chart(counts, num_groups=num_groups, sort_by='values', title_str=title_str)
         elif vis_type=="pie":
-            pie_chart(counts, num_slices=num_slices, title_str=title_str, sort_by="values")        
+            pie_chart(counts, num_groups=num_groups, title_str=title_str, sort_by="values")        
     finally:
         conn.close()
 
@@ -104,7 +105,7 @@ def count_distinct_authors(zotero_db_file: str = typer.Option(default=None, help
 
 @app.command()
 def show_timeline_date_published(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP), 
-                                 show_details: bool = typer.Option(default=True, help="true to show the individual publications for each year.")):
+                                 show_details: bool = typer.Option(default=True, help="Show the individual publications for each year. Hovering over each point reveals information about each individual publication.")):
     """
     Show the timeline of when the articles in the Zotero database were published.
 

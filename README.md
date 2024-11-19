@@ -7,26 +7,44 @@ This project aims to provide tools to understand the makeup of a Zotero library 
 pip install zotero-utils
 ```
 
+# Help
+Using the magic of [Typer](https://typer.tiangolo.com), you can get help messages for this package using 
+```bash
+zotero-utils --help
+```
+And for each command you can also see a help message.
+```bash
+zotero-utils show-creators-per-item --help
+```
+
 # Tools
 ## Counts
 Provides counts of several pieces of metadata:
     
-1. Number of articles from each author. Optionally, you can specify the number of slices shown.
+1. Number of articles from each author. Optionally, you can specify the number of bars shown.
 ```bash
 zotero-utils show-items-per-creator --num-slices=20
 ```
-![Number of Articles from Top 20 Authors](docs/show_items_per_creator.png)
+![Number of Articles from Top 20 Authors](docs/show_items_per_creator_bar.png)
+You can also choose to visualize this info as a pie chart.
+```bash
+zotero-utils show-items-per-creator --vis-type pie
+```
 
 2. Number of different authors in the database (identified by first and last name)
 ```bash
 zotero-utils count-distinct-authors
 ```
 
-3. Number of articles with 1-N authors. Optionally, you can specify the number of slices shown.
+3. Number of articles with 1-N authors. Optionally, you can specify the number of bars shown.
 ```bash
 zotero-utils show-creators-per-item --num-slices=20
 ```
-![Number of Authors Per Article](docs/show_creators_per_item.png)
+![Number of Authors Per Article](docs/show_creators_per_item_bar.png)
+You can also choose to visualize this info as a pie chart.
+```bash
+zotero-utils show-creators-per-item --vis-type pie
+```
 
 ## Timelines
 Visualize when articles were published. By default, details of each publication are shown. Optionally, they can be hidden.

@@ -7,7 +7,7 @@ def autopct_format(values):
         return '{v:d}'.format(v=val)
     return my_format
 
-def pie_chart(counts_dict: dict, num_slices: int = 20, sort_by: str = "values", title_str: str = ""):
+def pie_chart(counts_dict: dict, num_groups: int = 20, sort_by: str = "values", title_str: str = ""):
     """Visualize a pie chart given a counts dictionary.
     Can sort the pie chart slices by either values or labels"""
     
@@ -26,9 +26,9 @@ def pie_chart(counts_dict: dict, num_slices: int = 20, sort_by: str = "values", 
         sorted_pairs = sorted(zip(labels, values))
         sorted_labels, sorted_values = zip(*sorted_pairs)
 
-    # Limit to the top `num_slices`
-    sorted_labels = sorted_labels[:num_slices]
-    sorted_values = sorted_values[:num_slices]
+    # Limit to the top `num_groups`
+    sorted_labels = sorted_labels[:num_groups]
+    sorted_values = sorted_values[:num_groups]
     
     fig, ax = plt.subplots()
     ax.pie(sorted_values, labels=sorted_labels, autopct=autopct_format(sorted_values))

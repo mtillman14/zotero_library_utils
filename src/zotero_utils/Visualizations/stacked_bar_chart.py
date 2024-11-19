@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import typer
 
-def stacked_bar_chart(counts_dict: dict, num_slices: int = 20, sort_by: str = "values", title_str: str = ""):
+def stacked_bar_chart(counts_dict: dict, num_groups: int = 20, sort_by: str = "values", title_str: str = ""):
     """Visualize a stacked bar chart given a counts dictionary.
     Can sort the bars by either values or labels."""
 
-    if isinstance(num_slices, typer.models.OptionInfo):
-        num_slices = num_slices.default
+    if isinstance(num_groups, typer.models.OptionInfo):
+        num_groups = num_groups.default
 
     if sort_by not in ("values", "labels"):
         raise ValueError("Invalid 'sort_by' parameter. Valid parameters are 'values' or 'labels'.")
@@ -22,9 +22,9 @@ def stacked_bar_chart(counts_dict: dict, num_slices: int = 20, sort_by: str = "v
         sorted_pairs = sorted(zip(labels, values))
         sorted_labels, sorted_values = zip(*sorted_pairs)
 
-    # Limit to the top `num_slices`
-    sorted_labels = sorted_labels[:num_slices]
-    sorted_values = sorted_values[:num_slices]
+    # Limit to the top `num_groups`
+    sorted_labels = sorted_labels[:num_groups]
+    sorted_values = sorted_values[:num_groups]
 
     # Plot a stacked bar chart
     fig, ax = plt.subplots()
