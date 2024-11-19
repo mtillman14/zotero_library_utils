@@ -16,11 +16,8 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://mtillman14.github.io/zotero_library_utils/"
-Repository = "https://github.com/mtillman14/zotero_library_utils"
+Documentation = "https://mtillman14.github.io/zotero_utils/"
+Repository = "https://github.com/mtillman14/zotero_utils"
 
-# [tool.hatch.build.targets.wheel]
-# include = ["src/"]
-
-# [tool.hatch.build.targets.sdist]
-# include = ["src/"]
+[project.scripts]
+zotero-utils = "zotero_utils.commands:main"

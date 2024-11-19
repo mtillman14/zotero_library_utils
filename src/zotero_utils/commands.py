@@ -97,3 +97,7 @@ def show_timeline_date_published(zotero_db_file: str = typer.Option(default=None
         stem_plot([item.to_dict() for item in items_list], show_details=show_details)
     finally:
         conn.close()
+
+def main():
+    """Entry point for the CLI when run as 'zotero-utils ...'"""
+    app()

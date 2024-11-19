@@ -1,9 +1,9 @@
 
-site_name: "zotero_library_utils"
+site_name: "zotero_utils"
 site_author: "Mitchell Tillman"
 repo_name: ""
-repo_url: "https://github.com//"
-site_url: "https://researchos.github.io//"
+repo_url: "https://github.com/mtillman14/zotero_utils"
+site_url: "https://mtillman14.github.io/zotero_utils/"
 theme:
   name: material
   features:
