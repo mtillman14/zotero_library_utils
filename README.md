@@ -29,9 +29,9 @@ python -m zotero_utils show-creators-per-item --num-slices=20
 ![Number of Authors Per Article](docs/show_creators_per_item.png)
 
 ## Timelines
-Visualize when articles were published
+Visualize when articles were published. By default, details of each publication are shown. Optionally, they can be hidden.
 ```bash
-python -m zotero_utils show-timeline-date-published --show-details=false
+python -m zotero_utils show-timeline-date-published --no-show-details
 ```
 ![Article Publication Timeline](docs/article_publication_timeline.png)
 
