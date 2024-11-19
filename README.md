@@ -30,6 +30,9 @@ python -m zotero_library_utils show-creators-per-item --num-slices=20
 
 ## Timelines
 Visualize when articles were published
+```bash
+python -m zotero_library_utils show-timeline-date-published --show-details=false
+```
 ![Article Publication Timeline](docs/article_publication_timeline.png)
 
 <!-- ## Reference Graphs (Not Implemented)
@@ -41,4 +44,4 @@ This feature will attempt to create a graph of the references using AI locally t
 For errors and feature suggestions, please open an issue. Pull requests are also appreciated and will be reviewed ASAP.
 
 # Roadmap
-I'd like to be able to build a graph of the references between items in the Zotero database. Sticking to the local-first design, this means parsing PDF's for their references which is a notoriously difficult problem. Any suggestions are welcome, please open an issue!
+I'd like to be able to build a graph of the references between items in the Zotero database. Sticking to the local-first design, this means parsing PDF's for their references, which is a notoriously difficult problem. Any suggestions are welcome, please open an issue!

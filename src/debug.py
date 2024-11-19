@@ -7,7 +7,7 @@ src_dir = str(Path(__file__).parent)
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 
-from zotero_library_utils.commands import show_timeline_date_published
+from zotero_utils.commands import show_timeline_date_published
 
 def main():
     # You can set breakpoints in this function

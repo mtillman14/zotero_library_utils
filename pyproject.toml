@@ -4,14 +4,20 @@ requires = ['hatchling']
 build-backend = 'hatchling.build'
 
 [project]
-name = "zotero_library_utils"
+name = "zotero_utils"
 version = '0.1.0'
 description = 'Tools to locally analyze a Zotero library.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
 dependencies = [
     "typer",
-    "matplotlib"
+    "matplotlib",
+    "pandas",
+    "plotly"
 ]
+
+[project.urls]
+Documentation = "https://mtillman14.github.io/zotero_library_utils/"
+Repository = "https://github.com/mtillman14/zotero_library_utils"
 
 # [tool.hatch.build.targets.wheel]
 # include = ["src/"]

@@ -2,7 +2,7 @@
 import pytest
 import typer
 
-from zotero_library_utils.commands import show_timeline_date_published
+from zotero_utils.commands import show_timeline_date_published
 
 def test_zotero_library_utils():
     assert 1 + 1 == 2

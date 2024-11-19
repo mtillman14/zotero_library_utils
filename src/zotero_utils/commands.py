@@ -76,9 +76,10 @@ def count_distinct_authors(zotero_db_file: str = typer.Option(default=None, help
     finally:
         conn.close()
 
-# typer.Option(default=None, help=ZOTERO_DB_FILE_HELP)
+
 @app.command()
-def show_timeline_date_published(zotero_db_file: str = None, show_details: bool = True):
+def show_timeline_date_published(zotero_db_file: str = typer.Option(default=None, help=ZOTERO_DB_FILE_HELP), 
+                                 show_details: bool = typer.Option(default=True, help="true to show the individual publications for each year.")):
     """
     Show the timeline of when the articles in the Zotero database were published.
 
