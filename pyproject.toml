@@ -5,7 +5,7 @@ build-backend = 'hatchling.build'
 
 [project]
 name = "zotero_utils"
-version = '0.1.1'
+version = '0.1.2'
 description = 'Tools to locally analyze a Zotero library.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
 dependencies = [
