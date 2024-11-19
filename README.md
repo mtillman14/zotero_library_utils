@@ -23,9 +23,10 @@ Provides counts of several pieces of metadata:
     
 1. Number of articles from each author. Optionally, you can specify the number of bars shown.
 ```bash
-zotero-utils show-items-per-creator --num-slices=20
+zotero-utils show-items-per-creator --num-groups=20
 ```
 ![Number of Articles from Top 20 Authors](docs/show_items_per_creator_bar.png)
+
 You can also choose to visualize this info as a pie chart.
 ```bash
 zotero-utils show-items-per-creator --vis-type pie
@@ -38,9 +39,10 @@ zotero-utils count-distinct-authors
 
 3. Number of articles with 1-N authors. Optionally, you can specify the number of bars shown.
 ```bash
-zotero-utils show-creators-per-item --num-slices=20
+zotero-utils show-creators-per-item --num-groups=20
 ```
 ![Number of Authors Per Article](docs/show_creators_per_item_bar.png)
+
 You can also choose to visualize this info as a pie chart.
 ```bash
 zotero-utils show-creators-per-item --vis-type pie
