@@ -13,25 +13,25 @@ Provides counts of several pieces of metadata:
     
 1. Number of articles from each author. Optionally, you can specify the number of slices shown.
 ```bash
-python -m zotero-utils show-items-per-creator --num-slices=20
+zotero-utils show-items-per-creator --num-slices=20
 ```
 ![Number of Articles from Top 20 Authors](show_items_per_creator.png)
 
 2. Number of different authors in the database (identified by first and last name)
 ```bash
-python -m zotero-utils count-distinct-authors
+zotero-utils count-distinct-authors
 ```
 
 3. Number of articles with 1-N authors. Optionally, you can specify the number of slices shown.
 ```bash
-python -m zotero-utils show-creators-per-item --num-slices=20
+zotero-utils show-creators-per-item --num-slices=20
 ```
 ![Number of Authors Per Article](show_creators_per_item.png)
 
 ## Timelines
 Visualize when articles were published
 ```bash
-python -m zotero-utils show-timeline-date-published --show-details=false
+zotero-utils show-timeline-date-published --no-show-details
 ```
 ![Article Publication Timeline](article_publication_timeline.png)
 
