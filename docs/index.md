@@ -64,4 +64,8 @@ This feature will attempt to create a graph of the references using AI locally t
 For errors and feature suggestions, please open an issue. Pull requests are also appreciated and will be reviewed ASAP.
 
 # Roadmap
+## Reference Graph
 I'd like to be able to build a graph of the references between items in the Zotero database. Sticking to the local-first design, this means parsing PDF's for their references, which is a notoriously difficult problem. Any suggestions are welcome, please open an issue!
+
+## Zotero Local API
+Apparently, Zotero also supports a [local version](https://github.com/zotero/zotero/blob/dc39ca37566ac379611cad9253d48a054d915e9b/chrome/content/zotero/xpcom/localAPI/server_localAPI.js#L26-L64) of the [web API](https://www.zotero.org/support/dev/web_api/v3/start), and they recommend that applications use that.

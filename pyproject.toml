@@ -14,6 +14,7 @@ dependencies = [
     "pandas",
     "plotly"
 ]
+readme="README.md"
 
 [project.urls]
 Documentation = "https://mtillman14.github.io/zotero_utils/"

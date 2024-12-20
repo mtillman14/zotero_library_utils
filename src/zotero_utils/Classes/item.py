@@ -16,19 +16,24 @@ ITEM_FIELDS = [
 class Item:
 
     def __init__(self,
+                 id: int,
                  title: str,
                  file_path: str = None,
                  creators: list = [],
                  publisher: str = None,
                  date_published: str = None,
-                 date_added: str = None
+                 date_added: str = None,
+                 **kwargs
                  ):
+        self.id = id
         self.title = title
         self.file_path = file_path
         self.creators = tuple(creators)
         self.publisher = publisher
         self.date_published = datetime.datetime.strptime(date_published, "%Y-%m-%d") if date_published is not None else None
         self.date_added = datetime.datetime.strptime(date_added, "%Y-%m-%d") if date_added is not None else None
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def __str__(self):
         first_creator_name = "No Creator"
@@ -55,14 +60,25 @@ class Item:
             item_dict[field] = value
         return item_dict
     
+    def get_open_alex_work_id(self) -> str:
+        """Return the OpenAlex Work ID for the item."""
+        # Define the regex pattern to capture the ID
+        pattern = r"^OpenAlex Work ID: (.+)$"
+        
+        # Search for the pattern in the input text
+        match = re.search(pattern, self.extra, re.MULTILINE)
+        if match:
+            return match.group(1)  # Extract the content after the prefix
+        return None  # Return None if no match is found
+    
 def get_item(item_id: int, conn: sqlite3.Connection) -> Item:
     """Return an Item object given an item ID."""
 
-    sqlite_str = """SELECT dateAdded, dateModified FROM items WHERE itemID = ?"""
+    # sqlite_str = """SELECT dateAdded, dateModified FROM items WHERE itemID = ?"""
     cursor = conn.cursor()
-    sql_result = cursor.execute(sqlite_str, (item_id,)).fetchone()    
-    date_added = sql_result[0]
-    date_modified = sql_result[1]
+    # sql_result = cursor.execute(sqlite_str, (item_id,)).fetchone()    
+    # date_added = sql_result[0]
+    # date_modified = sql_result[1]
 
     # Get the item data field & value IDs
     sqlite_str = """SELECT fieldID, valueID FROM itemData WHERE itemID = ?"""
@@ -88,11 +104,13 @@ def get_item(item_id: int, conn: sqlite3.Connection) -> Item:
     sql_result = cursor.execute(sqlite_str, value_ids).fetchall()
     value_ids_values = {row[0]: row[1] for row in sql_result}
 
+    # All fields all items.
     item_dict = {
         field_ids_field_names[k]: value_ids_values[v] for k, v in field_ids_value_ids.items()
     }
 
-    item_dict_clean = {k: v for k, v in item_dict.items() if k in ITEM_FIELDS}
+    item_dict_clean = {k: v for k, v in item_dict.items()}
+    # item_dict_clean = {k: v for k, v in item_dict.items() if k in ITEM_FIELDS}
 
     if "title" not in item_dict_clean:
         return None    
@@ -112,6 +130,7 @@ def get_item(item_id: int, conn: sqlite3.Connection) -> Item:
         date_published = matches.group(0)
         date_published = re.sub('-00', '-01', date_published)
         item_dict_clean["date_published"] = date_published
-        
 
+    item_dict_clean["id"] = item_id
+        
     return Item(**item_dict_clean)

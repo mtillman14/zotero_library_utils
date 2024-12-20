@@ -1,6 +1,6 @@
 import sqlite3
 
-def get_all_items(conn: sqlite3.Connection) -> list:
+def get_all_item_ids(conn: sqlite3.Connection) -> list:
     """Return all itemIDs in the database."""
 
     sqlite_str = """SELECT itemID FROM items"""

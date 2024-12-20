@@ -12,7 +12,7 @@ from zotero_utils.commands import *
 def main():
     # You can set breakpoints in this function
     zotero_db_path = None  # Set this to your database path if needed
-    show_creators_per_item()
+    show_dag()
 
 if __name__ == "__main__":
     main()
